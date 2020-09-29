@@ -22,6 +22,7 @@ def index(request):
 
 def searchMatch(query, item):
     '''return true only if query matches the item'''
+    query=query.lower()
     if query in item.desc.lower() or query in item.product_name.lower() or query in item.category.lower():
         return True
     else:
@@ -41,7 +42,7 @@ def search(request):
         if len(prod) != 0:
             allProds.append([prod, range(1, nSlides), nSlides])
     params = {'allProds': allProds, "msg": ""}
-    if len(allProds) == 0 or len(query)<4:
+    if len(allProds) == 0 :
         params = {'msg': "Please make sure to enter relevant search query"}
     return render(request, 'shop/search.html', params)
 
